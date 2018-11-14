@@ -13,6 +13,13 @@ RSpec.describe User, type: :model do
     expect(User.new).to respond_to(:password_confirmation)
   end
 
+  it 'is invalid if name is blank' do
+    user = User.new
+    user.name = ''
+    user.password = user.password_confirmation = 'foo'
+    expect(user.valid?).to be false
+  end
+
   it 'is valid if password and password_confirmation match' do
     user = User.new
     user.name = "John"
